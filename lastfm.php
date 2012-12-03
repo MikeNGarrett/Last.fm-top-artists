@@ -10,10 +10,20 @@ define('LASTFM_USER', 'livefire');  //last.fm username
   * @return array listener and artist info
   */
 function getWrapUp($user = LASTFM_USER) {
-  if (!$doc = @file_get_contents('http://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user='.$user.'&api_key='.API_KEY.'&limit=50&period=12month&format=json'))
+
+	$ch = curl_init();
+	
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
+	curl_setopt($ch, CURLOPT_URL, 'http://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user='.$user.'&api_key='.API_KEY.'&limit=50&period=12month&format=json');
+	
+	$doc = curl_exec($ch);
+	curl_close($ch);
+	
+	if(empty($doc)) 
     die('could not connect to Last.fm API');
   
-  $output = json_decode($doc);
+    $output = json_decode($doc);
 
   //$xml = new SimpleXMLElement($doc);
 
@@ -66,8 +76,18 @@ function getAlbum($mbid) {
 */
 }
 function tryAlbum($mbid) {
-	if (!$doc = @file_get_contents('http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key='.API_KEY.'&mbid='.$mbid.'&username='.LASTFM_USER.'&format=json'))
-		die('could not connect to Last.fm API');
+	$ch = curl_init();
+	
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
+	curl_setopt($ch, CURLOPT_URL, 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key='.API_KEY.'&mbid='.$mbid.'&username='.LASTFM_USER.'&format=json');
+	
+	$doc = curl_exec($ch);
+	curl_close($ch);
+	
+	if(empty($doc)) 
+    die('could not connect to Last.fm API');
+
 	$doc = str_replace('#', '', $doc);
 	$output = json_decode($doc);
 	return $output;
