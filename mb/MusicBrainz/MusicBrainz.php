@@ -67,8 +67,18 @@ class MusicBrainz {
         {
             $uri .= '?inc=' . implode('+', $includes);
         }
+		$path = $uri;
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $path);
+		curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+		$returned = curl_exec($ch);
+		curl_close($ch);
 
-        $xml = simplexml_load_file($uri);
+		$xml = simplexml_load_string($returned);
+//        $xml = simplexml_load_file($uri);
 
         if ( ! $xml ) {
             throw new MusicBrainzException("The $entity_name lookup failed.");
