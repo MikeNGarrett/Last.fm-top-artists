@@ -1,4 +1,12 @@
-Last.fm API to retrieve top artists
-Ryan Kibler
+2012 Wrap Up
+http://redgarrett.com/wrap
 
-retrieve a listener's top 10 most played artists using Last.fm API
+
+This app will show you the top albums you've listened to this year that were released this year. 
+Instead of just listing them in order of the play count this script figures out how much you've been listening to each album and ranks them accordingly. 
+
+Currently still very much testing, breaking, fixing and retesting. 
+
+
+
+Based on Last.fm API to retrieve top artists by Ryan Kibler
