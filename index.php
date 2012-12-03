@@ -110,15 +110,15 @@ $last = $data['last'];
 ?>
 <div class="chart-item" style="clear: both; float: none; width: 96%; height: 180px; background: #FFF; padding: 25px 2%; z-index: 2; position: relative;">
 	<div style="float: left; margin-right: 20px;">
-		<img src="<?php echo $last->image[2]->text; ?>" />
+		<a href="<?php echo $last->url; ?>"><img src="<?php echo $last->image[2]->text; ?>" /></a>
 	</div>
 	<div style="float: left; ">
-		<h1 style="margin-top: 0;"><?php echo $i; ?>. <?php echo $last->name; ?> <small>By <?php echo $last->artist; ?></small></h1>
+		<h1 style="margin-top: 0;"><?php echo $i; ?>. <?php echo $last->name; ?> <small>By <a href="<?php echo $last->url; ?>"><?php echo $last->artist; ?></a></small></h1>
 		<ul>
-		<li><strong>Number:</strong> <?php echo $key; ?></li>
-		<li><strong>Profile:</strong> <a href="<?php echo $last->url; ?>">Link</a></li>
-		<li><strong>Listeners:</strong> <?php echo $last->listeners; ?></li>
-		<li><strong>Your Listens:</strong> <?php echo $last->userplaycount; ?></li>
+		<li><strong>Popularity:</strong> <?php echo $key; ?></li>
+		<li><strong>Artist Profile:</strong> <a href="<?php echo $last->url; ?>">Link</a></li>
+		<li><strong>Global Listeners:</strong> <?php echo $last->listeners; ?></li>
+		<li><strong>Your Scrobbles:</strong> <?php echo $last->userplaycount; ?></li>
 		<li><strong>Release Date:</strong> <?php echo $data['release']; ?></li>
 		</ul>
 	</div>
