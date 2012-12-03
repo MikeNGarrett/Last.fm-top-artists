@@ -113,10 +113,10 @@ $last = $data['last'];
 		<a href="<?php echo $last->url; ?>"><img src="<?php echo $last->image[2]->text; ?>" /></a>
 	</div>
 	<div style="float: left; ">
-		<h1 style="margin-top: 0;"><?php echo $i; ?>. <?php echo $last->name; ?> <small>By <a href="<?php echo $last->url; ?>"><?php echo $last->artist; ?></a></small></h1>
+		<h1 style="margin-top: 0;"><?php echo $i; ?>. <a href="<?php echo $last->url; ?>"><?php echo $last->name; ?></a> <small>By <?php echo $last->artist; ?></small></h1>
 		<ul>
 		<li><strong>Popularity:</strong> <?php echo $key; ?></li>
-		<li><strong>Artist Profile:</strong> <a href="<?php echo $last->url; ?>">Link</a></li>
+		<li><strong>Album URL:</strong> <a href="<?php echo $last->url; ?>">Last.fm</a></li>
 		<li><strong>Global Listeners:</strong> <?php echo $last->listeners; ?></li>
 		<li><strong>Your Scrobbles:</strong> <?php echo $last->userplaycount; ?></li>
 		<li><strong>Release Date:</strong> <?php echo $data['release']; ?></li>
