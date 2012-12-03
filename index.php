@@ -1,10 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<title>Wrap Up</title>		
+	</head>
+	<body>
+	<h1>2012 Wrap Up</h1>
+	<p>Your top albums as reported by last.fm according to our magic algorithm.</p>
 <?php
 // $albuminfo is empty... this is probably due to the fact that the right info is getting used
 require 'lastfm.php';
 
 $debug = false;
 
-$res = getWrapUp();
+if($_GET && isset($_GET['user'])) {
+	$user = $_GET['user'];	
+} else {
+	print('<div style="width: 96%; height: 500px; background: #FFF; margin: 2%;"><form action="/" method="get"><label for="user">Last.fm Username: <input type="text" name="user" /><input type="submit" value="GO"></form><p><small>Enter your last.fm username to get started.</small></p></div>');
+	die;
+}
+print('<img src="loader.gif" style="position: absolute; top: 320px; display: block; margin: 0 auto; width: 220px; height: 19px; z-index: 1; left: 10%;" />');
+$res = getWrapUp($user);
 $output = array();
 
 if($res) {
@@ -87,25 +102,27 @@ if($res) {
 	}
 
 }
-ksort($output);
+krsort($output);
 
 $i = 1;
 foreach($output as $key => $data) {
 $last = $data['last'];
-print_r($last);
-//<img src="<?php echo $last->album->image; " />
 ?>
-<h1><?php echo $i; ?></h1>
-<h2><?php echo $last->name; ?></h2>
-<h3>By <?php echo $last->artist; ?></h3>
-<ul>
-<li><strong>Number:</strong> <?php echo $key; ?></li>
-<li><strong>Profile:</strong> <a href="<?php echo $last->url; ?>">Link</a></li>
-<li><strong>Listeners:</strong> <?php echo $last->listeners; ?></li>
-<li><strong>Your Listens:</strong> <?php echo $last->userplaycount; ?></li>
-<li><strong>Release Date:</strong> <?php echo $data['release']; ?></li>
-</ul>
-
+<div class="chart-item" style="clear: both; float: none; width: 96%; height: 180px; background: #FFF; padding: 25px 2%; z-index: 2; position: relative;">
+	<div style="float: left; margin-right: 20px;">
+		<img src="<?php echo $last->image[2]->text; ?>" />
+	</div>
+	<div style="float: left; ">
+		<h1 style="margin-top: 0;"><?php echo $i; ?>. <?php echo $last->name; ?> <small>By <?php echo $last->artist; ?></small></h1>
+		<ul>
+		<li><strong>Number:</strong> <?php echo $key; ?></li>
+		<li><strong>Profile:</strong> <a href="<?php echo $last->url; ?>">Link</a></li>
+		<li><strong>Listeners:</strong> <?php echo $last->listeners; ?></li>
+		<li><strong>Your Listens:</strong> <?php echo $last->userplaycount; ?></li>
+		<li><strong>Release Date:</strong> <?php echo $data['release']; ?></li>
+		</ul>
+	</div>
+</div>
 <?php
 if($debug) {
 	print_r($data['debug']);
@@ -130,3 +147,5 @@ foreach($topArtists['artists'] as $artist)
 }
 */
 ?>
+	</body>
+</html>
